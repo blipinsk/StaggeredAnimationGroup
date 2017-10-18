@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data></data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="16dp">
+
+        <!--here are your views-->
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/firstCard"
+            style="@style/Card"
+            app:layout_constraintBottom_toTopOf="@+id/secondCard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/secondCard"
+            style="@style/Card"
+            app:layout_constraintBottom_toTopOf="@+id/thirdCard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstCard"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/thirdCard"
+            style="@style/Card"
+            app:layout_constraintBottom_toTopOf="@+id/fourthCard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/secondCard"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fourthCard"
+            style="@style/Card"
+            app:layout_constraintBottom_toTopOf="@+id/fifthCard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thirdCard"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fifthCard"
+            style="@style/Card"
+            app:layout_constraintBottom_toTopOf="@+id/sixthCard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fourthCard"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/sixthCard"
+            style="@style/Card"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/showButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fifthCard"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/showButton"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Show"
+            app:layout_constraintBottom_toTopOf="@+id/hideButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/showReversedButton"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/showReversedButton"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Show (reversed)"
+            app:layout_constraintBottom_toBottomOf="@+id/showButton"
+            app:layout_constraintLeft_toRightOf="@+id/showButton"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/hideButton"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hide"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/hideReversedButton"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/hideReversedButton"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hide (reversed)"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/hideButton"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <!--HERE'S THE GROUP-->
+        <com.bartoszlipinski.constraint.StaggeredAnimationGroup
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="firstCard, secondCard, thirdCard, fourthCard, fifthCard, sixthCard"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

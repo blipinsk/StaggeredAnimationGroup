@@ -1,0 +1,107 @@
+ext {
+    configuration = [
+            package          : "staggeredanimationgroup",
+            compileVersion   : 26,
+            buildToolsVersion: "26.0.2",
+            minSdk           : 9,
+            targetSdk        : 26,
+            versionCode      : 1,
+            versionName      : "1.0.0"
+    ]
+
+    libraries = [
+            support         : "26.1.0",
+            constraintlayout: "1.1.0-beta1"
+    ]
+
+    bintrayConfig = [
+            userOrg    : "blipinsk",
+            userName   : "Bartosz Lipinski",
+            userEmail  : "bartoszlipinski90@gmail.com",
+            groupId    : "com.bartoszlipinski.constraint",
+            name       : "StaggeredAnimationGroup",
+            artifact   : "staggeredanimationgroup",
+            description: "Fluent API wrapper for Android Espresso",
+            website    : "https://github.com/blipinsk/StaggeredAnimationGroup",
+            gitUrl     : "https://github.com/blipinsk/StaggeredAnimationGroup.git",
+            licenseDesc: "The Apache Software License, Version 2.0"
+    ]
+
+    bintrayUser = BINTRAY_USERNAME
+    bintrayKey = BINTRAY_API_KEY
+    dryRun = 'true'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+        classpath 'com.novoda:bintray-release:0.5.0'
+        // clean build bintrayUpload
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+subprojects {
+    group = bintrayConfig.groupId
+    version = configuration.versionCode
+
+    if (bintrayConfig.isUploading && project.name in [bintrayConfig.artifact]) {
+        println project.name
+        apply plugin: 'maven'
+
+        gradle.taskGraph.whenReady { taskGraph ->
+            taskGraph.getAllTasks().find {
+                it.path == ":$project.name:generatePomFileForMavenPublication"
+            }.doLast {
+                file("build/publications/maven/pom-default.xml").delete()
+                println 'Overriding pom-file to make sure we can sync to maven central!'
+                pom {
+                    //noinspection GroovyAssignabilityCheck
+                    project {
+                        name "$project.name"
+                        artifactId bintrayConfig.artifact
+                        packaging project.name == 'compiler' ? 'jar' : 'aar'
+                        description bintrayConfig.description
+                        url bintrayConfig.website
+                        version configuration.versionName
+
+                        scm {
+                            url bintrayConfig.gitUrl
+                            connection bintrayConfig.gitUrl
+                            developerConnection bintrayConfig.gitUrl
+                        }
+
+                        licenses {
+                            license {
+                                name bintrayConfig.licenseDesc
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id bintrayConfig.userOrg
+                                name bintrayConfig.userName
+                                email bintrayConfig.userEmail
+                            }
+                        }
+                    }
+                }.writeTo("build/publications/maven/pom-default.xml")
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
