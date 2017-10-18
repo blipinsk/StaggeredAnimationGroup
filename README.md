@@ -18,13 +18,22 @@ Usage
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--here are your other Views-->
-
+    <View
+        android:id="@+id/firstView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"> 
+    
+    <View
+        android:id="@+id/secondView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+    <!-- here's the group -->
     <com.bartoszlipinski.constraint.StaggeredAnimationGroup
         android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="firstView, secondView, thirdView"/>
+        app:constraint_referenced_ids="firstView, secondView"/>
 
 </android.support.constraint.ConstraintLayout>
 ```
@@ -35,11 +44,11 @@ Usage
 StaggeredAnimationGroup group = findViewById(R.id.group);
 ```
 
-2. Use proper methods to show and hide `Views` in your group (with ids: `firstView`, `secondView`, `thirdView`)
+2. Use proper methods to show and hide `Views` in your group (with ids: `firstView`, `secondView`)
 
 ```java
 group.show();
-//or
+// or
 group.hide();
 ```
 
@@ -49,7 +58,11 @@ Add a proper dependency inside your `build.gradle`. Like this:
 
 ```xml
 dependencies {
-    compile 'com.bartoszlipinski.constraint:staggeredanimationgroup:1.0.0'
+    implementation 'com.bartoszlipinski.constraint:staggeredanimationgroup:1.0.0'
+    
+    // obviously, you will also need those two:
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
+    implementation 'com.android.support:transition:26.1.0'
 }
 ```
 
