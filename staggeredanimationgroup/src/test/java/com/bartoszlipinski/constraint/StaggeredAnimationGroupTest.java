@@ -34,7 +34,7 @@ public class StaggeredAnimationGroupTest {
     public void filterNonZeroIds_returns_shorterArray_whenThereAre_zeros_inPassedArray() {
         //given
         StaggeredAnimationGroup spiedGroup = prepareSpiedGroup();
-        int[] testIds = new int[]{1, 2, 3, 4, 0, 0, 0, 0};
+        int[] testIds = new int[]{1, 2, 0, 3, 4, 0, 0, 0, 0};
 
         //when
         int[] filtered = spiedGroup.filterNonZeroIds(testIds);
